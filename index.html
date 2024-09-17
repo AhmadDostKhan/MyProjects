@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <nav>
+        <ul class="navbar">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <h1>Welcome to My Portfolio</h1>
+      <p>I am a web developer passionate about building excellent websites.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <h2>About Me</h2>
+      <p>
+        Hello! I'm [Your Name], a web developer with experience in HTML, CSS,
+        JavaScript, and React. I love coding and building interactive websites.
+      </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <h2>My Projects</h2>
+      <div class="project-list">
+        <div class="project">
+          <h3>Project 1</h3>
+          <p>A web-based application for managing tasks.</p>
+        </div>
+        <div class="project">
+          <h3>Project 2</h3>
+          <p>An e-commerce website with modern design and functionality.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <h2>Contact Me</h2>
+      <p>
+        Feel free to reach out to me at
+        <a href="mailto:your.email@example.com">your.email@example.com</a>.
+      </p>
+      <button id="contactButton">Say Hello!</button>
+    </section>
+
+    <script>
+      document
+        .getElementById("contactButton")
+        .addEventListener("click", function () {
+          alert("Hello! Thanks for visiting my portfolio.");
+        });
+    </script>
+  </body>
+</html>

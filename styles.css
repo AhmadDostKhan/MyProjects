@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.navbar li {
+  margin: 0 20px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.about,
+.projects,
+.contact {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #fff;
+  margin: 20px 0;
+}
+
+.project-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.project {
+  border: 1px solid #ddd;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+#contactButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#contactButton:hover {
+  background-color: #0056b3;
+}
