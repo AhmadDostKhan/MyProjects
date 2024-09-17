@@ -3,69 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Personal Book Library</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Navbar -->
-    <header>
-      <nav>
-        <ul class="navbar">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+    <div class="container">
+      <h1 id="Top-Heading">Personal Book Library</h1>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <h1>Welcome to My Portfolio</h1>
-      <p>I am a web developer passionate about building excellent websites.</p>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-      <h2>About Me</h2>
-      <p>
-        Hello! I'm [Your Name], a web developer with experience in HTML, CSS,
-        JavaScript, and React. I love coding and building interactive websites.
-      </p>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-      <h2>My Projects</h2>
-      <div class="project-list">
-        <div class="project">
-          <h3>Project 1</h3>
-          <p>A web-based application for managing tasks.</p>
-        </div>
-        <div class="project">
-          <h3>Project 2</h3>
-          <p>An e-commerce website with modern design and functionality.</p>
-        </div>
+      <div class="search-bar">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search for a book..."
+        />
+        <button id="search-btn">Search</button>
       </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <h2>Contact Me</h2>
-      <p>
-        Feel free to reach out to me at
-        <a href="mailto:your.email@example.com">your.email@example.com</a>.
-      </p>
-      <button id="contactButton">Say Hello!</button>
-    </section>
+      <div class="add-book">
+        <h2>Add New Book</h2>
+        <input type="text" id="book-title" placeholder="Book Title" />
+        <input type="text" id="book-author" placeholder="Author" />
+        <input type="text" id="book-category" placeholder="Category" />
+        <button id="add-book-btn">Add Book</button>
+      </div>
+
+      <h2>Books</h2>
+      <table id="book-list">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Borrow History</th>
+            <th>Action</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
     <script>
-      document
-        .getElementById("contactButton")
-        .addEventListener("click", function () {
-          alert("Hello! Thanks for visiting my portfolio.");
-        });
+      let bookList = [];
+
+function renderBooks() {
+  const bookTable = document.querySelector("#book-list tbody");
+  bookTable.innerHTML = "";
+
+  bookList.forEach((book, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.category}</td>
+      <td>${book.borrowHistory.join(", ") || "No borrow history"}</td>
+      <td><button class="borrow-btn" data-index="${index}">Borrow</button></td>
+      <td><button class="remove-btn" data-index="${index}">Remove</button></td>
+    `;
+
+    bookTable.appendChild(row);
+  });
+
+  const borrowButtons = document.querySelectorAll(".borrow-btn");
+  borrowButtons.forEach((button) => {
+    button.addEventListener("click", handleBorrow);
+  });
+
+  const removeButtons = document.querySelectorAll(".remove-btn");
+  removeButtons.forEach((button) => {
+    button.addEventListener("click", handleRemove);
+  });
+}
+
+document.getElementById("add-book-btn").addEventListener("click", function () {
+  const title = document.getElementById("book-title").value;
+  const author = document.getElementById("book-author").value;
+  const category = document.getElementById("book-category").value;
+
+  if (title && author && category) {
+    bookList.push({
+      title,
+      author,
+      category,
+      borrowHistory: [],
+    });
+    renderBooks();
+    clearInputs();
+  } else {
+    alert("Please fill in all fields");
+  }
+});
+
+function clearInputs() {
+  document.getElementById("book-title").value = "";
+  document.getElementById("book-author").value = "";
+  document.getElementById("book-category").value = "";
+}
+
+function handleBorrow(event) {
+  const index = event.target.dataset.index;
+  const borrower = prompt("Enter your name:");
+
+  if (borrower) {
+    bookList[index].borrowHistory.push(borrower);
+    renderBooks();
+  }
+}
+
+function handleRemove(event) {
+  const index = event.target.dataset.index;
+  bookList.splice(index, 1);
+  renderBooks();
+}
+
+document.getElementById("search-btn").addEventListener("click", function () {
+  const query = document.getElementById("search-input").value.toLowerCase();
+  const filteredBooks = bookList.filter(
+    (book) =>
+      book.title.toLowerCase().includes(query) ||
+      book.author.toLowerCase().includes(query) ||
+      book.category.toLowerCase().includes(query)
+  );
+
+  displaySearchedBooks(filteredBooks);
+});
+
+function displaySearchedBooks(books) {
+  const bookTable = document.querySelector("#book-list tbody");
+  bookTable.innerHTML = "";
+
+  books.forEach((book, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.category}</td>
+      <td>${book.borrowHistory.join(", ") || "No borrow history"}</td>
+      <td><button class="borrow-btn" data-index="${index}">Borrow</button></td>
+      <td><button class="remove-btn" data-index="${index}">Remove</button></td>
+    `;
+
+    bookTable.appendChild(row);
+  });
+}
+
     </script>
   </body>
 </html>
